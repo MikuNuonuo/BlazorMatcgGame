@@ -1,0 +1,354 @@
+﻿@page "/"
+@using System.Timers
+
+
+<style>
+    .container{
+        width: 400px;
+    }
+#button1,#button2,#button3 {
+        width: 60px;
+        height: 60px;
+        margin-left: 30px;
+        background-color: orange;
+    }
+
+    button{
+        width:100px;
+        height: 100px;
+    }
+
+    h2{
+       color:hotpink;
+       font-weight:bold;
+       font-size:22px;
+    }
+    h5{
+        font-size:20px;
+    }
+    h3 {
+        font-size: 18px;
+        color:orchid;
+    }
+
+    h4 {
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .textShow {
+    }
+</style>
+
+<div class="container">
+    <!--Task A&B, player can enter their information-->
+    <!--enter name-->
+    <div class="col-sm-6">
+        Enter Name:
+    </div>
+    <div class="col-sm-6">
+        <input type="text" placeholder="Enter your name"
+               @onchange="UpdateName" />
+    </div>
+
+    <!--enter date-->
+    <div class="col-sm-6"> Pick a date: </div>
+    <div class="col-sm-6">
+        <input type="date" @onchange="UpdateDate" />
+    </div>
+
+    <!--Task A&B player can pick up a time to complete game-->
+    <!--players can click button to pick how much time they are given to complete the game-->
+    <div class="textShow" id="timePlayShow">
+        <h2>
+            You have : <strong> @DisplayVaulue</strong> s to complete game!
+        </h2>
+    </div>
+    <h4>Click a button to pick up a time: </h4>
+    <div class="row ">
+        <!--creat 3 buttons to show the informations-->
+        <button type="button" class="btn btn-secondary" id="button1"
+                @onclick="() => TimeButtonClick(10.ToString(),10)">
+            <h5>10S</h5>
+        </button>
+
+        <button type="button" class="btn btn-secondary" id="button2"
+                @onclick="() => TimeButtonClick(20.ToString(),20)">
+            <h5>20S</h5>
+        </button>
+
+        <button type="button" class="btn btn-secondary" id="button3"
+                @onclick="() => TimeButtonClick(30.ToString(),30)">
+            <h5>30S</h5>
+        </button>
+    </div>
+    <br />
+    <!--highest score-->
+    <div class="row">
+        <h3><b>Highest Score:</b> @playerHScore  &nbsp;&nbsp; Player: @playerHname  &nbsp;&nbsp;   Date: @playerHdate</h3>
+    </div>
+
+    <!--match element-->
+    <div class="row ">
+        @for (var animalNumber = 0; animalNumber < shuffledAnimals.Count; animalNumber++)
+        {
+            var animal = shuffledAnimals[animalNumber];
+            var uniqueDescript = $"Button #{animalNumber}";
+
+            <div class="col-3">
+                <button @onclick="@(() => ButtonClick(animal, uniqueDescript))"
+                        type="button" class="btn btn-outline-dark">
+                    <h1>@animal</h1>
+                </button>
+            </div>
+        }
+    </div>
+    <div class="row">
+        <h4><b>Matches Found:</b> @matchesFound</h4>
+    </div>
+    <div class="row">
+        <h4><b>Time:</b> @remainingTime </h4>
+    </div>
+    <!--show player's score'-->
+    <div class="row">
+        <h4><b>Score: </b> @score</h4>
+    </div>
+
+</div>
+
+@code{
+
+
+    /*********---------------------------------------------------Assignment summary in the end of code----------------------------------------------************/
+    List<string> animalEmoji = new List<string>()
+    {
+        "🐰","🐰",
+        "🐶","🐶",
+        "🐱", "🐱",
+        "🦄", "🦄",
+        "🐼","🐼",
+        "🐔", "🐔",
+        "🐧", "🐧",
+        "🐯", "🐯"
+    };
+
+    List<string> shuffledAnimals = new List<string>();
+    //player can clict button to pick up a time they like
+    int buttonValue;
+    int buttonNumber;
+    int matchesFound = 0;
+    Timer timer;
+    int tenthsOfSecondElapsed = 0;
+    //how much time remaining
+    string remainingTime;
+    //player have how much time to play game
+    int initialTime;
+    //count how much time remaining
+    float timeCount;
+    float timeDisplay;
+
+    //count player's score
+    int score;
+    //track the highest score in game
+    int hScore = 0;
+    int playerHScore;
+    int currentScore;
+    string playerHname = "";
+    string hName = "";
+    string name = "";
+    string date = "";
+    string hDate = "";
+    string playerHdate = "";
+
+
+    protected override void OnInitialized()
+    {
+        timer = new Timer(100);
+        timer.Elapsed += Timer_Tick;
+        SetUpGame();
+        initialTime = 10;
+        buttonValue = 10;
+    }
+    private void SetUpGame()
+    {
+        Random random = new Random();
+        shuffledAnimals = animalEmoji
+            .OrderBy(item => random.Next())
+            .ToList();
+        matchesFound = 0;
+        tenthsOfSecondElapsed = 0;
+        //reset player's score
+        score = 0;
+        buttonValue = 10;
+        timeCount = 0;
+    }
+
+    string lastAnimalFound = string.Empty;
+    string lastDescription = string.Empty;
+
+    private void ButtonClick(string animal, string animalDescription)
+    {
+        if(lastAnimalFound == string.Empty)
+        {
+            lastAnimalFound = animal;
+            lastDescription = animalDescription;
+            timer.Start();
+        }
+        else if (lastAnimalFound == animal &&  lastDescription != animalDescription)
+        {
+            lastAnimalFound = string.Empty;
+
+            shuffledAnimals = shuffledAnimals
+                .Select(a => a.Replace(animal, string.Empty))
+                .ToList();
+            matchesFound++;
+            //if match successfully, player will get 1 point, Task A&C 
+            score++;
+            if(matchesFound == 8)
+            {
+                timer.Stop();
+                remainingTime += " - You Win!";
+                currentScore = score;
+                CompareScore(currentScore, playerHScore);
+                //make sure highest name and date will remain after setupgame, Task A&C
+                hName = playerHname;
+                hDate = playerHdate;
+                SetUpGame();
+            }
+        }
+        else
+        {
+            lastAnimalFound = string.Empty;
+            //if players select the incorrect animal, they will lose 1 point 
+            score--;
+        }
+        //when score < 0, score will still is 0, Task A&C 
+        if (score < 0)
+        {
+            score = 0;
+        }
+
+    }
+
+    private void Timer_Tick(Object source, ElapsedEventArgs e)
+    {
+        InvokeAsync(() =>
+        {
+            // assign buttonValue to initialTime, so that when play pick up a time, the Timer will change, Task A&B
+            initialTime = buttonValue;
+            tenthsOfSecondElapsed++;
+            timeDisplay = tenthsOfSecondElapsed / 10f;
+            remainingTime = (initialTime - timeDisplay).ToString("0,0s");
+            timeCount= (initialTime - timeDisplay);
+            StateHasChanged();
+
+        });
+        //if time become 0 and players not match all animals, they will lose, Task A&C 
+        if (timeCount == 0 && matchesFound != 8)
+        {
+            timer.Stop();
+            remainingTime += " - You Lose!";
+            currentScore = score;
+            CompareScore(currentScore, playerHScore);
+            //make sure highest name and date will remain after setupgame, Task A&C 
+            hName = playerHname;
+            hDate = playerHdate;
+            SetUpGame();
+
+        }
+    }
+
+    // achieve button value and display information, Task A&B
+    private string DisplayVaulue = "";
+    private void TimeButtonClick(string displayValue, int ButtonValue)
+    {
+        buttonValue =  ButtonValue;
+        DisplayVaulue = displayValue;
+    }
+
+    //change players date, Task A&B
+    private void UpdateDate(ChangeEventArgs e)
+    {
+        date = e.Value.ToString();
+    }
+
+    //change players name, Task A&B
+    private void UpdateName(ChangeEventArgs e)
+    {
+        name = e.Value.ToString();
+    }
+
+    // compare new player score and highest history score, Task A&C 
+    private void CompareScore(int currentScore, int hScore)
+    {
+        if (currentScore < hScore)
+        {
+            playerHScore = hScore;
+            playerHname = hName;
+            playerHdate = hDate;
+        }
+        else
+        {
+            playerHScore = currentScore;
+            playerHname = name;
+            playerHdate = date;
+        }
+    }
+    /*****
+    ------------------------------------------------------------------Assignment summary ---------------------------------------------------------------------
+
+    Make the game timer count down instead of up. If the timer reaches 0 before all matches are made, the player loses (Task A & B)
+    state: Finish
+        1. create an int initialTime, which store players have how much time to play game
+        2. create a string remainingTime to show the text of how much time remains, and assign it to page, so player can see it
+        3. create a int timeCount to count players have how much time remain now
+        4. change the value type of timeDisplay from string to int
+        5. timeCount= (initialTime - timeDisplay)
+        6. reset timeCount to 0 in the SetUpGame, so when player reset the game, time will reset again
+
+
+    Change the game so that the player scores 1 point for every correct match and loses 1 point for every wrong match (Task A & C)
+    state: Finish
+        1. create an int score to store player's score
+        2. when player match a pair of animal ( lastAnimalFound == animal &&  lastDescription != animalDescription), socre ++
+        3. when player make a mistake to match a pair of animals ( lastAnimalFound = string.Empty;), score--
+        4. we need to make sure the score does not become negative, so I use if statement to fix it that when score <0, score = 0;
+        5. reset score = 0 in SetUpGame and OnInitialized
+
+
+     Add a variable to keep track of the game's high score to complete all matches and show the player's name and date（Task A & B & C）
+     state: Finish
+        1. int hScore to store player's highest score in the history 
+        2. int current score to store the score in current  game 
+        3. int playerHScore to store new highest score
+        4. use string playerHname = ""; string playerHdate = ""; to show the text information of the new highest score player on page
+        5. use string date = ""; string name = ""  to store current player's information
+        6. string hDate = "";  string hName = ""; to store pass higheset player's information 
+        7. use function CompareScore to compare new player score and highest history score, if currentscore >= hscore,  playerHScore = currentscore, so we can update the new score 
+        8. when player win or lose game, update currentScore = score and use function CompareScore to compare scores
+
+
+    Let the user pick how much time they are given to complete the game (requirements A and B)
+    state: Finish
+        1. create 3 buttons on page, so players can click button to pick up a time they like
+        2. create an int buttunValue to store button's value
+        3. create an int buttunNumber to show the button's number
+        4. create a function TimeButtonClick, use this to achieve button value and display information, and assign value to each button
+        5. in Timer_Tick function, assign buttonValue to initialTime, so when player pick up a button, the game remaning time will become the buttonValue  
+        6. give a defaut value buttonValue = 10, When player SetUpGame or Initialize game. So if player don't pick up a button, default remaindingtime will become 10s 
+
+
+    Change the game to be more like traditional "memory" or "concentration" -- i.e., the images for all 16 buttons are the same and the player only sees the "shuffled animal" image after they click on a button (requirement C, possibly B)
+    state: Plan
+        1. inorder to finish it, I think I need to know how to flip animal cards from blank face to animal face
+        2. maybe I can use empty string as the blank face, and in the beginning, all cards are blank face.
+        3. write an if else statement, if player click the blank face, it will flip for 1s, then turn back to blank face
+    *****/
+
+
+
+
+
+
+}
+
+
