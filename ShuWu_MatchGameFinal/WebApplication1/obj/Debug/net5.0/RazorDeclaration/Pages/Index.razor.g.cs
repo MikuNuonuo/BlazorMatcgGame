@@ -13,77 +13,77 @@ namespace WebApplication1.Pages
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Users\78649\Downloads\BlazorMatcgGame-draft\BlazorMatcgGame-draft\ShuWu_MatchGameDraft\WebApplication1\_Imports.razor"
+#line 1 "D:\GitHub\BlazorMatcgGame\ShuWu_MatchGameFinal\WebApplication1\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\78649\Downloads\BlazorMatcgGame-draft\BlazorMatcgGame-draft\ShuWu_MatchGameDraft\WebApplication1\_Imports.razor"
+#line 2 "D:\GitHub\BlazorMatcgGame\ShuWu_MatchGameFinal\WebApplication1\_Imports.razor"
 using System.Net.Http.Json;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\78649\Downloads\BlazorMatcgGame-draft\BlazorMatcgGame-draft\ShuWu_MatchGameDraft\WebApplication1\_Imports.razor"
+#line 3 "D:\GitHub\BlazorMatcgGame\ShuWu_MatchGameFinal\WebApplication1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\78649\Downloads\BlazorMatcgGame-draft\BlazorMatcgGame-draft\ShuWu_MatchGameDraft\WebApplication1\_Imports.razor"
+#line 4 "D:\GitHub\BlazorMatcgGame\ShuWu_MatchGameFinal\WebApplication1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\78649\Downloads\BlazorMatcgGame-draft\BlazorMatcgGame-draft\ShuWu_MatchGameDraft\WebApplication1\_Imports.razor"
+#line 5 "D:\GitHub\BlazorMatcgGame\ShuWu_MatchGameFinal\WebApplication1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\78649\Downloads\BlazorMatcgGame-draft\BlazorMatcgGame-draft\ShuWu_MatchGameDraft\WebApplication1\_Imports.razor"
+#line 6 "D:\GitHub\BlazorMatcgGame\ShuWu_MatchGameFinal\WebApplication1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\78649\Downloads\BlazorMatcgGame-draft\BlazorMatcgGame-draft\ShuWu_MatchGameDraft\WebApplication1\_Imports.razor"
+#line 7 "D:\GitHub\BlazorMatcgGame\ShuWu_MatchGameFinal\WebApplication1\_Imports.razor"
 using Microsoft.AspNetCore.Components.WebAssembly.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\78649\Downloads\BlazorMatcgGame-draft\BlazorMatcgGame-draft\ShuWu_MatchGameDraft\WebApplication1\_Imports.razor"
+#line 8 "D:\GitHub\BlazorMatcgGame\ShuWu_MatchGameFinal\WebApplication1\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\78649\Downloads\BlazorMatcgGame-draft\BlazorMatcgGame-draft\ShuWu_MatchGameDraft\WebApplication1\_Imports.razor"
+#line 9 "D:\GitHub\BlazorMatcgGame\ShuWu_MatchGameFinal\WebApplication1\_Imports.razor"
 using WebApplication1;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Users\78649\Downloads\BlazorMatcgGame-draft\BlazorMatcgGame-draft\ShuWu_MatchGameDraft\WebApplication1\_Imports.razor"
+#line 10 "D:\GitHub\BlazorMatcgGame\ShuWu_MatchGameFinal\WebApplication1\_Imports.razor"
 using WebApplication1.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\78649\Downloads\BlazorMatcgGame-draft\BlazorMatcgGame-draft\ShuWu_MatchGameDraft\WebApplication1\Pages\Index.razor"
+#line 2 "D:\GitHub\BlazorMatcgGame\ShuWu_MatchGameFinal\WebApplication1\Pages\Index.razor"
 using System.Timers;
 
 #line default
@@ -98,7 +98,7 @@ using System.Timers;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 129 "C:\Users\78649\Downloads\BlazorMatcgGame-draft\BlazorMatcgGame-draft\ShuWu_MatchGameDraft\WebApplication1\Pages\Index.razor"
+#line 129 "D:\GitHub\BlazorMatcgGame\ShuWu_MatchGameFinal\WebApplication1\Pages\Index.razor"
       
 
 
@@ -157,8 +157,8 @@ using System.Timers;
         timer = new Timer(100);
         timer.Elapsed += Timer_Tick;
         SetUpGame();
-        initialTime = 10;
-        buttonValue = 10;
+        initialTime = 20;
+        buttonValue = 20;
 
     }
     private void SetUpGame()
@@ -175,7 +175,7 @@ using System.Timers;
         tenthsOfSecondElapsed = 0;
         //reset player's score
         score = 0;
-        buttonValue = 10;
+        buttonValue = 20;
         timeCount = 0;
 
     }
@@ -314,14 +314,14 @@ using System.Timers;
      ------------------------------------------------------------------Assignment summary ---------------------------------------------------------------------
 
         [🌟New] Change the game to be more like traditional "memory" or "concentration" -- i.e., the images for all 16 buttons are the same and the player only sees the "shuffled animal" image after they click on a button (requirement C, possibly B)
-     state: Plan
-         1. use hidden property of span to hide button
-         2. create animalNumber2 to store curerent animalnumber
-         3. create lastAnimalNumber and lastLastAnimalNumber to record last animal number and new last animal number
-         4. use state to record current state, state 1:start game, 2: match successfullu 3: fail to match
-         5. create a bool list "hidden" to record bool of current animal number, the defaul of all bool are ture. When game begin, the last button player clicked
-            will become false, so we can see it. when state = 3(fail to match), the bool of last and lastlast animal of hidden list will become true, so they will 
-            be hide;
+     state: Finish
+         1. use hidden property of span to hide buttons
+         2. create animalNumber2 to store current animalnumber
+         3. create lastAnimalNumber and lastLastAnimalNumber to record the last animal number and new last animal number
+         4. use state to record current state, state 1:start game, 2: match successfully 3: fail to match
+         5. create a bool list "hidden" to record the bool of the current animal number, the default of all bool are true. When the game begins, 
+         the last button player clicks will become false, so we can see it. when state = 3(fail to match), the bool of last and lastlast animal 
+         of hidden list will become true, so they will be hide again;
 
 
     ----------------------------------------------------------last week work-------------------------------------------------------         Make the game timer count down instead of up. If the timer reaches 0 before all matches are made, the player loses (Task A & B)

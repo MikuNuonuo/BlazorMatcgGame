@@ -1,4 +1,4 @@
 ﻿<StaticWebAssets Version="1.0">
-  <ContentRoot BasePath="/" Path="C:\Users\78649\Downloads\BlazorMatcgGame-draft\BlazorMatcgGame-draft\ShuWu_MatchGameDraft\WebApplication1\bin\Debug\net5.0\wwwroot\" />
-  <ContentRoot BasePath="/" Path="C:\Users\78649\Downloads\BlazorMatcgGame-draft\BlazorMatcgGame-draft\ShuWu_MatchGameDraft\WebApplication1\obj\Debug\net5.0\scopedcss\bundle\" />
+  <ContentRoot BasePath="/" Path="D:\GitHub\BlazorMatcgGame\ShuWu_MatchGameFinal\WebApplication1\bin\Debug\net5.0\wwwroot\" />
+  <ContentRoot BasePath="/" Path="D:\GitHub\BlazorMatcgGame\ShuWu_MatchGameFinal\WebApplication1\obj\Debug\net5.0\scopedcss\bundle\" />
 </StaticWebAssets>

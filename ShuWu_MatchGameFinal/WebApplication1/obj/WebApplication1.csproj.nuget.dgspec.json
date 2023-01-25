@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\78649\\Downloads\\BlazorMatcgGame-draft\\BlazorMatcgGame-draft\\ShuWu_MatchGameDraft\\WebApplication1\\WebApplication1.csproj": {}
+    "D:\\GitHub\\BlazorMatcgGame\\ShuWu_MatchGameFinal\\WebApplication1\\WebApplication1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\78649\\Downloads\\BlazorMatcgGame-draft\\BlazorMatcgGame-draft\\ShuWu_MatchGameDraft\\WebApplication1\\WebApplication1.csproj": {
+    "D:\\GitHub\\BlazorMatcgGame\\ShuWu_MatchGameFinal\\WebApplication1\\WebApplication1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\78649\\Downloads\\BlazorMatcgGame-draft\\BlazorMatcgGame-draft\\ShuWu_MatchGameDraft\\WebApplication1\\WebApplication1.csproj",
+        "projectUniqueName": "D:\\GitHub\\BlazorMatcgGame\\ShuWu_MatchGameFinal\\WebApplication1\\WebApplication1.csproj",
         "projectName": "WebApplication1",
-        "projectPath": "C:\\Users\\78649\\Downloads\\BlazorMatcgGame-draft\\BlazorMatcgGame-draft\\ShuWu_MatchGameDraft\\WebApplication1\\WebApplication1.csproj",
+        "projectPath": "D:\\GitHub\\BlazorMatcgGame\\ShuWu_MatchGameFinal\\WebApplication1\\WebApplication1.csproj",
         "packagesPath": "C:\\Users\\78649\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\78649\\Downloads\\BlazorMatcgGame-draft\\BlazorMatcgGame-draft\\ShuWu_MatchGameDraft\\WebApplication1\\obj\\",
+        "outputPath": "D:\\GitHub\\BlazorMatcgGame\\ShuWu_MatchGameFinal\\WebApplication1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\78649\\AppData\\Roaming\\NuGet\\NuGet.Config",
